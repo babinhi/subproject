@@ -1,8 +1,6 @@
 package Trip1;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class TourMain {
 
@@ -11,10 +9,10 @@ public class TourMain {
 		Scanner sc = new Scanner(System.in);
 		CustomerService Cservice = new CustomerService();
 		ManagerService Mservice = new ManagerService();
-		Map<String, CustomerDTO> c = new HashMap<>();
-
+//		Map<String, CustomerDTO> c = new HashMap<>();
+//		Map<String, BreakdownDTO> b = new HashMap<>();
+		
 		boolean loginOk = false;
-		boolean manager = false;
 
 		while (true) {
 			System.out.println("────────────────────────────── MENU ──────────────────────────────");
@@ -22,8 +20,8 @@ public class TourMain {
 ////			System.out.print("번호 >");
 //			int menu = sc.nextInt();
 			if (loginOk) {
-				System.out.println("[ "+"금액 :" + " ] " );
-				System.out.println("  1.회원정보확인 2.금액충전 3.정보수정 4.방리스트 5.방예약 6.예약확인 7.예약취소 8.회원탈퇴 0.종료");
+				System.out.println("[ "+"금액 :" + "원" );
+				System.out.println("  1.회원정보확인 2.금액충전 3.정보수정 4.객실예약 5.예약확인취소 6.회원탈퇴 0.종료");
 			} else {
 				System.out.println("  1.회원가입 2.로그인 3.방 4.방삭제 5.예약확인 6.예약취소 7.회원리스트 0.로그아웃");
 			}
@@ -39,7 +37,7 @@ public class TourMain {
 				}
 			} else if (menu == 2) {
 				if (loginOk) {
-//					Cservice.point;
+					Cservice.deposit();
 				} else {
 					loginOk= Cservice.loginCheck();
 				}

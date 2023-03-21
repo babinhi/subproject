@@ -1,14 +1,13 @@
 package Trip1;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 
 public class CustomerRepository {
 	Map<String, CustomerDTO> c = new HashMap<>();
 //	private List<CustomerDTO> list = new ArrayList<>();
+	Map<String, BreakdownDTO> b = new HashMap<>();
 	
 	
 	
@@ -16,13 +15,11 @@ public class CustomerRepository {
 		c.put(num, customerDTO);
 		return true;
 	}
-	public boolean update(CustomerDTO customerDTO, String num) {
+	public boolean update( String password, String phonenumber) {
 		for(String customer : c.keySet() ) {
-			if(c.get(num).getNum().equals(num)) {
-				c.get(num).setId(customerDTO.getId());
-				c.get(num).setPassword(customerDTO.getPassword());
-				c.get(num).setAge(customerDTO.getAge());
-				c.get(num).setPhonenumber(customerDTO.getPhonenumber());
+			if(c.get(c).getPassword().equals(password) &&
+					c.get(c).getPhonenumber().equals(phonenumber)) {
+				
 				return true;
 			}
 		}
@@ -48,6 +45,52 @@ public class CustomerRepository {
 		}
 		return false;
 	}
+	public String getnum(String id, String password) {
+		for(String customer : c.keySet()) {
+			if(c.get(customer).getId().equals(id)&&c.get(customer).getPassword().equals(password)) {
+				return c.get(customer).getNum();
+			}
+			
+		}
+		return null;
+	}
+	public boolean deposit(String num, long money) {
+		for(String customer : c.keySet()) {
+			if(c.get(customer).getNum().equals(num)) {
+				c.get(customer).setBalance(c.get(customer).getBalance() + money);
+				BreakdownDTO breakdownDTO = new BreakdownDTO();
+				breakdownDTO.setAccount(num);
+				breakdownDTO.setDivision("입금");
+				breakdownDTO.setDealMoney(money);
+				breakdownDTO.setTotalMoney(c.get(customer).getBalance());
+				b.put(breakdownDTO.getM(), breakdownDTO);
+//				bList.add(breakdownDTO);
+				return true;	
+			}
+				
+		}
+		return false;
+	}
+	public boolean withdraw(String account, long money) {
+		for(String customer : c.keySet()) {
+			if (c.get(customer).getNum().equals(account)) {
+				if (c.get(customer).getBalance() >= money) {
+					c.get(customer).setBalance(c.get(customer).getBalance() - money);
+					BreakdownDTO breakdownDTO = new BreakdownDTO();
+					breakdownDTO.setAccount(account);
+					breakdownDTO.setDivision("결제");
+					breakdownDTO.setDealMoney(money);
+					breakdownDTO.setTotalMoney(c.get(customer).getBalance());
+					b.put(breakdownDTO.getM(), breakdownDTO);
+					return true;
+				} else {
+					return false;
+				}
+			}
+		}
+		return false;
+	}
+	
 	
 	
 	

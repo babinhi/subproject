@@ -39,8 +39,8 @@ public class CustomerService {
 		if(customerDTO == null) {
 			System.out.println("오류입니다");
 		}else {
-			System.out.println("회원번호 \t 이름 \t 나이 \t 전화번호\t\t 객실번호 \t 가입날짜");
-			System.out.println("──────────────────────────────────────────────────────────");
+			System.out.println("회원번호 \t 이름 \t 아이디\t 비밀번호 \t 나이 \t 전화번호\t\t 객실번호 \t 가입날짜");
+			System.out.println("────────────────────────────────────────────────────────────────────────────────────────────");
 			System.out.println (customerDTO.toString());
 			
 		}
@@ -51,7 +51,7 @@ public class CustomerService {
 		String id = sc.next();
 		sc.nextLine();
 		CustomerDTO c = customer.findById(loginId, loginPassword);
-		if (c != null) {
+		if (c == null) {
 			System.out.println("조회할 수 없는 아이디 입니다");
 		} else {
 			CustomerDTO customerDTO = new CustomerDTO();
@@ -85,7 +85,7 @@ public class CustomerService {
 		if (customer.loginCheck(id, password)) {
 			loginId = id;
 			loginPassword = password;
-			System.out.println( id + "님 환영합니다");
+			System.out.println( "로그인이 되었습니다 ");
 			return true;
 		}else {
 			System.out.println("다시한번 확인해주세요");
@@ -94,9 +94,35 @@ public class CustomerService {
 		
 	}
 	
-	public void point() {
-		System.out.print("충전하실 금액 입력> ");
-		long money = sc.nextLong();
+	public void deposit() {
+		String num = customer.getnum(loginId, loginPassword);
+		if(num == null) {
+			System.out.println("로그인 오류");
+		}else {
+			System.out.print("충전하실 금액 입력> ");
+			long money = sc.nextLong();
+			if(customer.deposit(num, money)) {
+				System.out.println("충전성공");
+			}else {
+				System.out.println("충전실패");
+			}
+		}
+		
+		
+	}
+	public void withdraw() {
+		String num = customer.getnum(loginId, loginPassword);
+		if (num == null) {
+			System.out.println("로그인 오류");
+		} else {
+			System.out.print("계산 금액> ");
+			long money = sc.nextLong();
+			if (customer.withdraw(num, money)) {
+				System.out.println("결제가 완료되었습니다");
+			} else {
+				System.out.println("잔액부족합니다 확인해주세요");
+			}
+		}
 	}
 
 

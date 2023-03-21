@@ -66,16 +66,16 @@ public class CustomerDTO {
 	public void setPhonenumber(String phonenumber) {
 		this.phonenumber = phonenumber;
 	}
-	
 	public long getBalance() {
 		return balance;
 	}
 	public void setBalance(long balance) {
 		this.balance = balance;
 	}
+	
 	@Override
 	public String toString() {
-		return num + "\t " +name + "\t " + age + "\t " + phonenumber + " \t " + hotelname + " \t "
+		return num + "\t " +name +"\t "+ id + "\t " + password + "\t " + age + "\t " + phonenumber + " \t " + hotelname + " \t "
 				+ postDate;
 	}
 	
