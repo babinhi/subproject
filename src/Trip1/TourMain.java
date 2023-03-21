@@ -1,5 +1,7 @@
 package Trip1;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class TourMain {
@@ -7,64 +9,70 @@ public class TourMain {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner sc = new Scanner(System.in);
-		TourService service = new TourService();
+		CustomerService Cservice = new CustomerService();
+		ManagerService Mservice = new ManagerService();
+		Map<String, CustomerDTO> c = new HashMap<>();
+
 		boolean loginOk = false;
-		
+		boolean manager = false;
+
 		while (true) {
 			System.out.println("────────────────────────────── MENU ──────────────────────────────");
-			if(loginOk) {
-				System.out.println("  1.회원정보수정 2.숙박시설검색 3.숙박시설예약 4.여행예약확인 5.예약취소 6.회원탈퇴 0.종료");
-			}else {
-				System.out.println("  1.회원가입 2.로그인 2.여행지등록 3.여행지삭제 4.예약확인 5.예약취소 6.회원리스트 0.로그아웃");	
+//			System.out.println("1.관리자 2.고객 0.종료");
+////			System.out.print("번호 >");
+//			int menu = sc.nextInt();
+			if (loginOk) {
+				System.out.println("[ "+"금액 :" + " ] " );
+				System.out.println("  1.회원정보확인 2.금액충전 3.정보수정 4.방리스트 5.방예약 6.예약확인 7.예약취소 8.회원탈퇴 0.종료");
+			} else {
+				System.out.println("  1.회원가입 2.로그인 3.방 4.방삭제 5.예약확인 6.예약취소 7.회원리스트 0.로그아웃");
 			}
-			
+
 			System.out.print("선택> ");
 			int menu = sc.nextInt();
 
 			if (menu == 1) {
+				if (loginOk) {
+					Cservice.findById();
+				} else {
+					Cservice.save();
+				}
+			} else if (menu == 2) {
+				if (loginOk) {
+//					Cservice.point;
+				} else {
+					loginOk= Cservice.loginCheck();
+				}
+			}
+				else if (menu == 3) {
 				if(loginOk) {
-					service.update();
+					Cservice.update();
 				}
 				else {
-					service.save();
+//					Cservice.tourDelete();
+				}	
+			} else if (menu == 4) {
+				if(loginOk) {
+					Cservice.findHotel();
 				}
-			} 
-//			else if (menu == 2) {
-//				if(loginOk) {
-//					service.findHotel();
-//				}
-//				else {
-//					service.loginCheck();
-//				}
-//			} else if (menu == 3) {
-//				if(loginOk) {
-//					service.hotelCheck();
-//				}
-//				else {
-//					setvice.tourDelete();
-//				}	
-//			} else if (menu == 4) {
-//				if(loginOk) {
-//					service.tourCheck();
-//				}
-//				else {
-//					service.tourCheck1();
-//				}
-//			} else if (menu == 5) {
-//				if(loginOk) {
-//					service.tourCancel();
-//				}
-//				else {
-//					service.tourCancel1();
-//				}
-//			} else if (menu == 6) {
-//				if(loginOk) {
-//					service.joinDelete();
-//				}
-//				else {
-//					service.findById();
-//				}
-//			}
+				else {
+//					Cservice.tourCheck1();
+				}
+			} else if (menu == 5) {
+				if(loginOk) {
+//					Cservice.tourCancel();
+				}
+				else {
+//					Cservice.tourCancel1();
+				}
+			} else if (menu == 6) {
+				if(loginOk) {
+//					Cservice.joinDelete();
+				}
+				else {
+//					Cservice.findById();
+				}
+			}
 			else if (menu == 0) {
 				break;
 			} else {
